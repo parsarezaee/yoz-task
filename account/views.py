@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from .forms import UserRegisterForm
+from django.views.generic.edit import CreateView
 
-# Create your views here.
+
+
+class SignUpView(CreateView):
+    template_name = 'account/register.html'
+    success_url = reverse_lazy('')
