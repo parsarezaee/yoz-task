@@ -4,7 +4,8 @@ from django.forms import ModelForm
 
 
 class UserRegisterForm(forms.ModelForm):
-
+    password = forms.CharField(label='Password', 
+    widget= forms.PasswordInput)
     class Meta:
         model = UserRegisterModel
-        fields = '__all__'
+        fields = ['phoneNumber', 'password']
