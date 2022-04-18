@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'product.apps.ProductConfig',
-    'account.apps.AccountConfig'
+    'account.apps.AccountConfig',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [
