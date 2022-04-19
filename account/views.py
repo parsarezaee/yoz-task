@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -58,3 +59,18 @@ class UserLogoutView(LoginRequiredMixin, View):
         logout(request)
         messages.success(request, 'You logged out successfuly', 'success')
         return redirect('product:home')
+
+
+@login_required(login_url='product:home')
+def userprofile(request):
+    #complete profile by user
+    if request.method == 'POST':
+        user_form = UserProfileForm(instance=request.user, data=request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Profile completed successfuly')
+        else:
+            messages.error(request, 'error completing your profile')
+    else:
+        user_form = UserProfileForm(instance=request.user)
+    return render(request, 'profile.html', {'user_form':user_form})
