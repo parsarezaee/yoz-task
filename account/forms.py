@@ -15,6 +15,7 @@ class UserRegisterForm(UserCreationForm):
             user.save()
         return user
 
-# class UserLoginForm(forms.Form):
-#     phone = forms.RegexField(regex= r"^09\d{2}\s*?\d{3}\s*?\d{4}$")
-#     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+class UserLoginForm(forms.Form):
+    phone = forms.RegexField(regex= r"^09\d{2}\s*?\d{3}\s*?\d{4}$")
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
