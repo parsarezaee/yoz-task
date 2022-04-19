@@ -1,10 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .forms import UserRegisterForm, UserLoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -36,7 +35,6 @@ class UserLoginView(View):
             return redirect('product:home')
         return super().dispatch(request, *args, **kwargs)
 
-
     def get(self, request):
         form = self.form_class
         return render(request, self.template_name, {'form':form})
@@ -52,3 +50,11 @@ class UserLoginView(View):
                 return redirect('product:home')
             messages.error(request, 'Phone number or password is wrong', 'warning')
         return render(request, self.template_name, {'form':form})
+
+
+
+class UserLogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, 'You logged out successfuly', 'success')
+        return redirect('product:home')
