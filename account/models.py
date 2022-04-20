@@ -45,11 +45,17 @@ class UserRegisterModel(AbstractUser):
     username = None
     phone_number_Regex = RegexValidator(regex= r"^09\d{2}\s*?\d{3}\s*?\d{4}$")
     phone = models.CharField(validators = [phone_number_Regex], max_length = 11, unique = True, null=True)
-
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = []
 
     objects = UserManager()
 
     def __str__(self):
-        return self.phone
+        return str(self.phone)
+
+
+class UserProfileModel(models.Model):
+    user = models.ForeignKey(UserRegisterModel, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    profile_complete = models.BooleanField(default=False)

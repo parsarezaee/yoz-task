@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 
 
 
